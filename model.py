@@ -4,8 +4,10 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.datasets import fetch_openml
 from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
 import numpy as np
 import pandas as pd
+
 
 
 
@@ -28,8 +30,14 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size= 0.33, shuff
 
 
 model.fit(X_train, y_train)
-print("score:", model.score(X_test, y_test)) 
 
+##Cross Validating data and keeping metrics
+scores = cross_val_score(model, X, y, scoring= 'f1_micro')
+
+
+#printing scores
+
+print("Avg Accuracy: ", np.mean(scores))
 
 
 
